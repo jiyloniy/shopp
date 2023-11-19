@@ -9,7 +9,7 @@ from main.models import COllection
 class Category(models.Model):
     name = models.CharField(max_length=200)
     created_at = models.DateTimeField(auto_now_add=True)
-
+    is_active = models.BooleanField(default=True)
     @property
     def get_products(self):
         return self.products.all()
@@ -24,7 +24,7 @@ class Category(models.Model):
 class Tag(models.Model):
     name = models.CharField(max_length=200)
     created_at = models.DateTimeField(auto_now_add=True)
-
+    is_active = models.BooleanField(default=True)
     @property
     def get_products(self):
         return self.products.all()
@@ -36,7 +36,7 @@ class Tag(models.Model):
 class Color(models.Model):
     name = models.CharField(max_length=200)
     created_at = models.DateTimeField(auto_now_add=True)
-
+    is_active = models.BooleanField(default=True)
     @property
     def get_products(self):
         return self.products.all()
@@ -51,7 +51,7 @@ class Color(models.Model):
 class Size(models.Model):
     name = models.CharField(max_length=200)
     created_at = models.DateTimeField(auto_now_add=True)
-
+    is_active = models.BooleanField(default=True)
     @property
     def get_products(self):
         return self.products.all()
@@ -81,6 +81,7 @@ class Product(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     collection = models.ForeignKey(COllection, on_delete=models.RESTRICT, related_name='products')
+    is_active = models.BooleanField(default=True)
 
     @property
     def is_sale(self):
