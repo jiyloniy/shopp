@@ -49,8 +49,25 @@ class Contact(models.Model):
         verbose_name_plural = 'Contacts'
 
 
+class COllection(models.Model):
+    name = models.CharField(max_length=50)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    @property
+    def get_banners(self):
+        return self.banners.all()
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        db_table = 'CollectionTable'
+        verbose_name = 'Collection'
+        verbose_name_plural = 'Collections'
+
+
 class Banner(models.Model):
-    collection = models.CharField(max_length=50)
+    collection = models.ForeignKey(COllection, on_delete=models.RESTRICT, related_name='banners')
     title = models.CharField(max_length=50)
     description = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
@@ -64,7 +81,3 @@ class Banner(models.Model):
         db_table = 'BannerTable'
         verbose_name = 'Banner'
         verbose_name_plural = 'Banners'
-
-
-
-

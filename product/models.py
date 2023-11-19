@@ -1,10 +1,18 @@
+import datetime
+
 from ckeditor.fields import RichTextField
 from django.db import models
+
+from main.models import COllection
 
 
 class Category(models.Model):
     name = models.CharField(max_length=200)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    @property
+    def get_products(self):
+        return self.products.all()
 
     def __str__(self):
         return self.name
@@ -17,6 +25,10 @@ class Tag(models.Model):
     name = models.CharField(max_length=200)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    @property
+    def get_products(self):
+        return self.products.all()
+
     def __str__(self):
         return self.name
 
@@ -24,6 +36,10 @@ class Tag(models.Model):
 class Color(models.Model):
     name = models.CharField(max_length=200)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    @property
+    def get_products(self):
+        return self.products.all()
 
     def __str__(self):
         return self.name
@@ -35,6 +51,10 @@ class Color(models.Model):
 class Size(models.Model):
     name = models.CharField(max_length=200)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    @property
+    def get_products(self):
+        return self.products.all()
 
     def __str__(self):
         return self.name
@@ -60,10 +80,15 @@ class Product(models.Model):
     sizes = models.ManyToManyField(Size, related_name='products')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    collection = models.ForeignKey(COllection, on_delete=models.RESTRICT, related_name='products')
 
     @property
     def is_sale(self):
         return self.sale_percentage > 0
+
+    @property
+    def is_new(self):
+        return (datetime.datetime.now() - self.created_at).days < 5
 
     @property
     def get_sale_price(self):
@@ -81,19 +106,8 @@ class Product(models.Model):
     def get_sizes(self):
         return self.sizes.all()
 
-    # @property
-    # def send_from_telegram_bot(self):
-    #     token = '6251800251:AAEv86CEuLjyEhyri8t_YQQMktbAE_TTdn8'
-    #     chat_id = '1702651852'
-    #     text = f'Name: {self.name}\nPrice: {self.price}\nSale Percentage: {self.sale_percentage}'
-    #     url = f'https://api.telegram.org/bot{token}/sendMessage?chat_id={chat_id}&text={text}'
-    #     self.send_request(url)
-    #     return True
-    #
-    # @staticmethod
-    # def send_request(url):
-    #     import requests
-    #     requests.get(url)
+    token = '6251800251:AAEv86CEuLjyEhyri8t_YQQMktbAE_TTdn8'
+    chat_id = '1702651852'
 
     def __str__(self):
         return self.name

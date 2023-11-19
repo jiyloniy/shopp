@@ -1,6 +1,12 @@
 from django.contrib import admin
 
-from main.models import Contact, Team, Banner
+from main.models import Contact, Team, Banner, COllection
+
+
+@admin.register(COllection)
+class COllectionAdmin(admin.ModelAdmin):
+    libs_display = ['name', 'created_at', 'updated_at']
+    list_filter = ['name', 'created_at', 'updated_at']
 
 
 # Register your models here.
