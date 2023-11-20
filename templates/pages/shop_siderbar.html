@@ -20,10 +20,9 @@
                             <ul class="nice-scroll">
                                 {% for category in categories %}
 
-                                    <li><a href="?cat={{ category }}">{{ category }}  ({{ category.products.count }})</a></li>
+                                    <li><a onclick="addParam('cat',{{ category.pk }} )"> {{ category }} ({{ category.products.count }})</a>
+                                    </li>
                                 {% endfor %}
-
-
 
 
                             </ul>
@@ -41,7 +40,7 @@
                         <div class="shop__sidebar__brand">
                             <ul>
                                 {% for brand in brands %}
-                                    <li><a href="?brand={{ brand }}">{{ brand }} </a></li>
+                                    <li><a onclick="addParam('brand', {{ brand.pk }} )"> {{ brand }} </a></li>
                                 {% endfor %}
 
                             </ul>
@@ -79,9 +78,9 @@
 
 
 
-                            <label for="{{ size }}">{{ size }}
-                                <input type="radio" id="{{ size }}">
-                            </label>
+                                <label for="{{ size }}">{{ size }}
+                                    <input type="radio" id="{{ size }}">
+                                </label>
                             {% endfor %}
 
                         </div>
@@ -103,7 +102,6 @@
                             {% endfor %}
 
 
-
                         </div>
                     </div>
                 </div>
@@ -115,12 +113,12 @@
                 <div id="collapseSix" class="collapse show" data-parent="#accordionExample">
                     <div class="card-body">
                         <div class="shop__sidebar__tags">
-                           {% for tag in tags %}
+                            {% for tag in tags %}
 
 
 
 
-                            <a href="#">{{ tag }}</a>
+                                <a href="#">{{ tag }}</a>
 
                             {% endfor %}
                         </div>

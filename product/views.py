@@ -22,7 +22,7 @@ class ProductListView(ListView):
         if q:
             qs = qs.filter(name__icontains=q)
         if cat:
-            qs = qs.filter(category__name__icontains=cat)
+            qs = qs.filter(category__pk=cat)
         if tag:
             qs = qs.filter(tags__name__icontains=tag)
         if color:
@@ -32,7 +32,7 @@ class ProductListView(ListView):
         if collection:
             qs = qs.filter(collection__name__icontains=collection)
         if brand:
-            qs = qs.filter(brand__name__icontains=brand)
+            qs = qs.filter(brand__pk=brand)
 
         return qs
 

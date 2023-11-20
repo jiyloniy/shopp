@@ -54,7 +54,7 @@
                                         {% if object.is_new %}
                                             <span class="label bg-white
                                             " style="width: 65.83px; color: black; {% if object.sale_percentage %}
-                                            margin-top: 28px; {% endif %} ">
+                                                margin-top: 28px; {% endif %} ">
                                                 New</span>
                                         {% endif %}
                                         {% if object.is_sale %}
@@ -120,4 +120,35 @@
         </div>
     </section>
     <!-- Shop Section End -->
+{% endblock %}
+{% block extra_js %}
+
+    {#    for all products filter #}
+    <script>
+
+        {#function addParam(name, value) {#}
+        {#    console.log(window.location.search);#}
+        {##}
+        {#    let params = new URLSearchParams(window.location.search);#}
+        {##}
+        {#    if (params.has(name) && params.get(name) === value) {#}
+        {#        params.delete(name);#}
+        {#    } else {#}
+        {#        params.set(name, value);#}
+        {#        console.log(params.toString());#}
+        {#    }#}
+        {#    console.log(params.toString());#}
+        {#    window.location.search = params.toString();#}
+
+        function  addParam(name ,value){
+            let params = new URLSearchParams(window.location.search);
+            if (params.has(name) && params.get(name) === value) {
+                params.delete(name);
+            } else {
+                params.set(name, value);
+            }
+            window.location.search = params.toString();
+        }
+    </script>
+
 {% endblock %}

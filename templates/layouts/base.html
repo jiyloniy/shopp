@@ -15,7 +15,7 @@
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
-    rel="stylesheet">
+          rel="stylesheet">
 
     <!-- Css Styles -->
     <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}" type="text/css">
@@ -29,43 +29,45 @@
 </head>
 
 <body>
-    <!-- Page Preloder -->
-    <div id="preloder">
-        <div class="loader"></div>
+<!-- Page Preloder -->
+<div id="preloder">
+    <div class="loader"></div>
+</div>
+{% include 'layouts/navbar.html' %}
+{% block content %}
+
+{% endblock %}
+
+<!-- Footer Section Begin -->
+{% include 'layouts/footer.html' %}
+
+<!-- Search Begin -->
+<div class="search-model">
+    <div class="h-100 d-flex align-items-center justify-content-center">
+        <div class="search-close-switch">+</div>
+        <form class="search-model-form" action="{% url 'products' %}" method="get">
+            <input type="text" id="search-input" placeholder="Search here....." value="{{ request.GET.q }}" name="q">
+        </form>
+
     </div>
-    {% include 'layouts/navbar.html' %}
-    {% block content %}
-    	
-    {% endblock %}
-
-    <!-- Footer Section Begin -->
-    {% include 'layouts/footer.html' %}
-    
-    <!-- Search Begin -->
-    <div class="search-model">
-        <div class="h-100 d-flex align-items-center justify-content-center">
-            <div class="search-close-switch">+</div>
-            <form class="search-model-form" action="{% url 'products' %}" method="get">
-                <input type="text" id="search-input" placeholder="Search here....." value="{{ request.GET.q }}" name="q">
-            </form>
-             
-        </div>
-    </div>
-    <!-- Search End -->
+</div>
+<!-- Search End -->
 
 
+<!-- Js Plugins -->
+<script src="{% static 'bootstrap/js/jquery-3.3.1.min.js' %} "></script>
+<script src="{% static 'bootstrap/js/bootstrap.min.js' %} "></script>
+<script src="{% static 'bootstrap/js/jquery.nice-select.min.js' %} "></script>
+<script src="{% static 'bootstrap/js/jquery.nicescroll.min.js' %} "></script>
+<script src="{% static 'bootstrap/js/jquery.magnific-popup.min.js' %} "></script>
+<script src="{% static 'bootstrap/js/jquery.countdown.min.js' %} "></script>
+<script src="{% static 'bootstrap/js/jquery.slicknav.js' %} "></script>
+<script src="{% static 'main/js/mixitup.min.js' %} "></script>
+<script src="{% static 'main/js/owl.carousel.min.js' %} "></script>
+<script src="{% static 'main/js/main.js' %} "></script>
+{% block extra_js %}
 
-    <!-- Js Plugins -->
-    <script src="{% static 'bootstrap/js/jquery-3.3.1.min.js' %} "></script>
-    <script src="{% static 'bootstrap/js/bootstrap.min.js' %} "></script>
-    <script src="{% static 'bootstrap/js/jquery.nice-select.min.js' %} "></script>
-    <script src="{% static 'bootstrap/js/jquery.nicescroll.min.js' %} "></script>
-    <script src="{% static 'bootstrap/js/jquery.magnific-popup.min.js' %} "></script>
-    <script src="{% static 'bootstrap/js/jquery.countdown.min.js' %} "></script>
-    <script src="{% static 'bootstrap/js/jquery.slicknav.js' %} "></script>
-    <script src="{% static 'main/js/mixitup.min.js' %} "></script>
-    <script src="{% static 'main/js/owl.carousel.min.js' %} "></script>
-    <script src="{% static 'main/js/main.js' %} "></script>
+{% endblock %}
 </body>
 
 </html>
