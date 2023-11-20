@@ -23,11 +23,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 ]
 urlpatterns += (
-    path('',include('main.urls')),
+    path('', include('main.urls')),
     # path('user/', include('user.urls')),
     path('blog/', include('blog.urls')),
     # path('order/', include('order.urls')),
-    # path('product/', include('product.urls')),
+    path('product/', include('product.urls')),
 
 )
 

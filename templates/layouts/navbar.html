@@ -75,7 +75,7 @@
                         <li {% if request.path == '/'  %}
                         	class="active"
                         {% endif %} ><a href="{% url 'home' %}">Home</a></li>
-                        <li><a href="./shop.html">Shop</a></li>
+                        <li><a href="{% url 'products' %}">Shop</a></li>
                         <li><a href="#">Pages</a>
                             <ul class="dropdown">
                                 <li><a href="./about.html">About Us</a></li>

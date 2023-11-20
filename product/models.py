@@ -1,5 +1,3 @@
-import datetime
-
 from ckeditor.fields import RichTextField
 from django.db import models
 
@@ -10,6 +8,7 @@ class Category(models.Model):
     name = models.CharField(max_length=200)
     created_at = models.DateTimeField(auto_now_add=True)
     is_active = models.BooleanField(default=True)
+
     @property
     def get_products(self):
         return self.products.all()
@@ -25,6 +24,7 @@ class Tag(models.Model):
     name = models.CharField(max_length=200)
     created_at = models.DateTimeField(auto_now_add=True)
     is_active = models.BooleanField(default=True)
+
     @property
     def get_products(self):
         return self.products.all()
@@ -37,6 +37,7 @@ class Color(models.Model):
     name = models.CharField(max_length=200)
     created_at = models.DateTimeField(auto_now_add=True)
     is_active = models.BooleanField(default=True)
+
     @property
     def get_products(self):
         return self.products.all()
@@ -52,6 +53,7 @@ class Size(models.Model):
     name = models.CharField(max_length=200)
     created_at = models.DateTimeField(auto_now_add=True)
     is_active = models.BooleanField(default=True)
+
     @property
     def get_products(self):
         return self.products.all()
@@ -89,11 +91,17 @@ class Product(models.Model):
 
     @property
     def is_new(self):
-        return (datetime.datetime.now() - self.created_at).days < 5
+        from datetime import datetime, timedelta, timezone
+        now = datetime.now(timezone.utc)
+        return (now - self.created_at) < timedelta(days=3)
 
     @property
     def get_sale_price(self):
         return self.price - (self.price * self.sale_percentage / 100)
+
+    @property
+    def color_list(self):
+        return self.colors.all()
 
     @property
     def get_tags(self):
