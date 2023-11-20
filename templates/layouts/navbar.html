@@ -16,12 +16,9 @@
         </div>
     </div>
     <div class="offcanvas__nav__option">
-        <a href="#" class="search-switch"><img src="{% static 'main/img/icon/search.png' %}
-" alt=""></a>
-        <a href="#"><img src="{% static 'main/img/icon/heart.png' %}
-" alt=""></a>
-        <a href="#"><img src="{% static 'main/img/icon/cart.png' %}
-" alt=""> <span>0</span></a>
+        <a href="#" class="search-switch"><img src="{% static 'main/img/icon/search.png' %}" alt=""></a>
+        <a href="#"><img src="{% static 'main/img/icon/heart.png' %}" alt=""></a>
+        <a href="#"><img src="{% static 'main/img/icon/cart.png' %}" alt=""> <span>0</span></a>
         <div class="price">$0.00</div>
     </div>
     <div id="mobile-menu-wrap"></div>
@@ -64,8 +61,7 @@
         <div class="row">
             <div class="col-lg-3 col-md-3">
                 <div class="header__logo">
-                    <a href="./index.html"><img src="{% static 'main/img/logo.png' %}
-" alt=""></a>
+                    <a href="{% url 'home' %}"><img src="{% static 'main/img/logo.png' %}" alt=""></a>
                 </div>
             </div>
             <div class="col-lg-6 col-md-6">
@@ -75,7 +71,8 @@
                         <li {% if request.path == '/'  %}
                         	class="active"
                         {% endif %} ><a href="{% url 'home' %}">Home</a></li>
-                        <li><a href="{% url 'products' %}">Shop</a></li>
+                        <li {% if request.path == '/product/'   %}class="active"{% endif %}>
+                            <a href="{% url 'products' %}">Shop</a></li>
                         <li><a href="#">Pages</a>
                             <ul class="dropdown">
                                 <li><a href="./about.html">About Us</a></li>

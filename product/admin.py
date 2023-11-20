@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.utils.html import format_html
 
 from product.form import ColorForm
-from product.models import Product, Category, Size, Tag, Color
+from product.models import Product, Category, Size, Tag, Color, Brand
 
 
 # Register your models here.
@@ -13,6 +13,11 @@ class ProductAdmin(admin.ModelAdmin):
     list_filter = ('category', 'is_active')
     search_fields = ('name', 'description')
 
+
+@admin.register(Brand)
+class BrandAdmin(admin.ModelAdmin):
+    list_display = ['name']
+    list_filter = ['name']
 
 
 @admin.register(Category)

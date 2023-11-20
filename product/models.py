@@ -65,7 +65,16 @@ class Size(models.Model):
         verbose_name_plural = 'Sizes'
 
 
-# Create your models here.
+class Brand(models.Model):
+    name = models.CharField(max_length=200)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name_plural = 'Brands'
+
 
 class Product(models.Model):
     img_field = models.ImageField(upload_to='images/')
@@ -84,7 +93,7 @@ class Product(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     collection = models.ForeignKey(COllection, on_delete=models.RESTRICT, related_name='products')
     is_active = models.BooleanField(default=True)
-
+    brand = models.ForeignKey(Brand, on_delete=models.RESTRICT, related_name='products', null=True, blank=True)
     @property
     def is_sale(self):
         return self.sale_percentage > 0
