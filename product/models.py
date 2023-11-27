@@ -1,7 +1,8 @@
 from ckeditor.fields import RichTextField
-from django.db import models
+from django.db import models, IntegrityError
 
 from main.models import COllection
+from user.models import UserModel
 
 
 class Category(models.Model):
@@ -94,6 +95,7 @@ class Product(models.Model):
     collection = models.ForeignKey(COllection, on_delete=models.RESTRICT, related_name='products')
     is_active = models.BooleanField(default=True)
     brand = models.ForeignKey(Brand, on_delete=models.RESTRICT, related_name='products', null=True, blank=True)
+
     @property
     def is_sale(self):
         return self.sale_percentage > 0
@@ -107,6 +109,14 @@ class Product(models.Model):
     @property
     def get_sale_price(self):
         return self.price - (self.price * self.sale_percentage / 100)
+
+    @property
+    def max_price(self):
+        return self.real_price.max()
+
+    @property
+    def minprice(self):
+        return self.real_price.min()
 
     @property
     def color_list(self):
@@ -133,3 +143,44 @@ class Product(models.Model):
     class Meta:
         db_table = 'ProductModel'
         verbose_name_plural = 'Products'
+
+    @staticmethod
+    def get_cart_objects(cart_list):
+        return Product.objects.filter(id__in=cart_list)
+
+
+class WishList(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='products')
+    user = models.ForeignKey(UserModel, on_delete=models.CASCADE, related_name='users')
+
+    def __str__(self):
+        return self.product.name
+
+    class Meta:
+        managed = True
+        verbose_name = 'WishList'
+        verbose_name_plural = 'WishLists'
+        unique_together = ['user', 'product']
+
+
+class CartModel(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='product')
+    user = models.ForeignKey(UserModel, on_delete=models.CASCADE, related_name='user')
+
+    def __str__(self):
+        return self.product.name
+
+    class Meta:
+        verbose_name = 'CartModel'
+        verbose_name_plural = 'CartModels'
+        unique_together = ['user', 'product']
+
+    @staticmethod
+    def create_or_delete(user, product):
+        carted_list = []
+        try:
+            CartModel.objects.create(user_id=user, product_id=product)
+            return product
+        except IntegrityError:
+            CartModel.objects.filter(user=user, product=product).delete()
+            return product

@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.utils.html import format_html
 
 from product.form import ColorForm
-from product.models import Product, Category, Size, Tag, Color, Brand
+from product.models import Product, Category, Size, Tag, Color, Brand, WishList
 
 
 # Register your models here.
@@ -53,3 +53,9 @@ class ColorAdmin(admin.ModelAdmin):
             f'<div style=\"width: 30px; height: 30px; border-radius:50px; background-color: {obj}"></div>',
             obj.name,
         )
+
+@admin.register(WishList)
+class WishListAdmin(admin.ModelAdmin):
+    list_display = ('user', 'product')
+    list_filter = ('user', 'product')
+    search_fields = ('user', 'product')

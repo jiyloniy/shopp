@@ -51,7 +51,7 @@ def com(request, slug):
             # send  telegram bot
             token = Comment.token
             chat_id = Comment.chat_id
-            blog = Blog.objects.get(slug=slug)
+            blog = Blog.objects.filter(slug=slug).first()
             text = f'Blog: {blog.title}\nName: {form.instance.name}\nEmail: {form.instance.email}\nPhone: {form.instance.phone}\nComment: {form.instance.comment}'
             url = f'https://api.telegram.org/bot{token}/sendMessage?chat_id={chat_id}&text={text}'
             import requests

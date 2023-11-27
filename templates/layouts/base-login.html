@@ -26,6 +26,9 @@
     <link rel="stylesheet" href="{% static 'main/css/owl.carousel.min.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'main/css/slicknav.min.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'main/css/style.css' %}" type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900&amp;subset=latin,latin-ext">
+
     {% block extra_css %}
 
     {% endblock %}
@@ -42,14 +45,14 @@
 {% endblock %}
 
 <!-- Footer Section Begin -->
-{% include 'layouts/footer.html' %}
+
 
 <!-- Search Begin -->
 <div class="search-model">
     <div class="h-100 d-flex align-items-center justify-content-center">
         <div class="search-close-switch">+</div>
         <form class="search-model-form" action="{% url 'products' %}" method="get">
-            <input type="text" id="search-input" placeholder="Search here....." value="{{ request.GET.q }}" name="q">
+            <label for="search-input"></label><input type="text" id="search-input" placeholder="Search here....." value="{{ request.GET.q }}" name="q">
         </form>
 
     </div>

@@ -1,4 +1,4 @@
-{% load static %}
+{% load static tag %}
 <div class="shop__sidebar">
     <div class="shop__sidebar__search">
         <form action="{% url 'products' %}" method="get">
@@ -20,7 +20,10 @@
                             <ul class="nice-scroll">
                                 {% for category in categories %}
 
-                                    <li><a onclick="addParam('cat',{{ category.pk }} )"> {{ category }} ({{ category.products.count }})</a>
+                                    <li><a onclick="addParam('cat',{{ category.pk }} )" {% if request.GET.cat == category.pk|stringformat:"s" %}
+                                                        style="font-weight: bold; color: black;"
+                                        {% endif %}> {{ category }}
+                                        ({{ category.products.count }})</a>
                                     </li>
                                 {% endfor %}
 
@@ -40,7 +43,11 @@
                         <div class="shop__sidebar__brand">
                             <ul>
                                 {% for brand in brands %}
-                                    <li><a onclick="addParam('brand', {{ brand.pk }} )"> {{ brand }} </a></li>
+                                    <li><a onclick="addParam('brand', {{ brand.pk }} )"
+                                            {% if request.GET.brand == brand.pk|stringformat:"s" %}
+                                           style="font-weight: bold; color: black;"
+                                            {% endif %}
+                                    >{{ brand }} </a></li>
                                 {% endfor %}
 
                             </ul>
@@ -55,14 +62,9 @@
                 <div id="collapseThree" class="collapse show" data-parent="#accordionExample">
                     <div class="card-body">
                         <div class="shop__sidebar__price">
-                            <ul>
-                                <li><a href="#">$0.00 - $50.00</a></li>
-                                <li><a href="#">$50.00 - $100.00</a></li>
-                                <li><a href="#">$100.00 - $150.00</a></li>
-                                <li><a href="#">$150.00 - $200.00</a></li>
-                                <li><a href="#">$200.00 - $250.00</a></li>
-                                <li><a href="#">250.00+</a></li>
-                            </ul>
+
+                                <input type="text" class="js-range-slider" id="birnima" name="my_range" value="" />
+
                         </div>
                     </div>
                 </div>
@@ -75,10 +77,11 @@
                     <div class="card-body">
                         <div class="shop__sidebar__size">
                             {% for size in sizes %}
-
-
-
-                                <label for="{{ size }}">{{ size }}
+                                <label for="{{ size }}" onclick="addParam('size',{{ size.pk }})"
+                                        {% if request.GET.size == size.pk|stringformat:"s" %}
+                                       style="background: black; color: white;"
+                                        {% endif %}
+                                >{{ size }}
                                     <input type="radio" id="{{ size }}">
                                 </label>
                             {% endfor %}
@@ -95,7 +98,8 @@
                     <div class="card-body">
                         <div class="shop__sidebar__color">
                             {% for color in colors %}
-                                <label style=" background:{{ color.name }}" for="sp-{{ forloop.counter }}">
+                                <label style=" background:{{ color.name }}" for="sp-{{ forloop.counter }}"
+                                       onclick="addParam('color', {{ color.pk }}) ">
                                     <input type="radio" id="{{ forloop.counter }}">
                                 </label>
 
@@ -114,12 +118,12 @@
                     <div class="card-body">
                         <div class="shop__sidebar__tags">
                             {% for tag in tags %}
+                                <a onclick="addParam('tag',{{ tag.pk }})"
+                                        {% if request.GET.tag == tag.pk|stringformat:"s" %}
+                                   style="background: black; color: white;"
+                                        {% endif %}
 
-
-
-
-                                <a href="#">{{ tag }}</a>
-
+                                >{{ tag }}</a>
                             {% endfor %}
                         </div>
                     </div>

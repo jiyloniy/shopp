@@ -1,58 +1,24 @@
-{% extends 'layouts/base.html' %}
+{% extends 'layouts/base-login.html' %}
 {% load static tag %}
 {% block extra_css %}
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/css/ion.rangeSlider.min.css"/>{% endblock %}
 {% block title %}Shop{% endblock %}
 {% block content %}
-    <section class="breadcrumb-option">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="breadcrumb__text">
-                        <h4>Shop</h4>
-                        <div class="breadcrumb__links">
-                            <a href="{% url 'home' %}">Home</a>
-                            <span>Shop</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+
+{% if object_list %}
+
 
     <!-- Shop Section Begin -->
     <section class="shop spad">
         <div class="container">
             <div class="row">
-                <div class="col-lg-3">
-                    {% include 'pages/shop_siderbar.html' %}
-                </div>
+
                 <div class="col-lg-9">
-                    <div class="shop__product__option">
-                        <div class="row">
-                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                <div class="shop__product__option__left">
-                                    <p>Showing 1–12 of 126 results</p>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                <div class="shop__product__option__right">
-                                    <p>Sort by Price:</p>
-                                    <label>
-                                        <select>
-                                            <option value="">Low To High</option>
-                                            <option value="">$0 - $55</option>
-                                            <option value="">$55 - $100</option>
-                                        </select>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
                     <div class="row">
                         {% for object in object_list %}
-                            <div class="col-lg-4 col-md-6 col-sm-6 new-arrivals" id="product-{{ object.id }}" price="{{ object.real_price }}">
+                            <div class="col-lg-4 col-md-6 col-sm-6 new-arrivals">
                                 <div class="product__item sale">
                                     <div class="product__item__pic set-bg " data-setbg="{{ object.img_field.url }} ">
                                         {% if object.is_new %}
@@ -86,7 +52,7 @@
                                     </div>
                                     <div class="product__item__text">
                                         <h6>{{ object.name }}</h6>
-                                        <a onclick="addCart({{ object.id }})" class="add-cart">+ Add To Cart</a>
+                                        <a href="#" class="add-cart">+ Add To Cart</a>
                                         <div class="rating">
                                             <i class="fa fa-star"></i>
                                             <i class="fa fa-star"></i>
@@ -98,7 +64,7 @@
                                         <h5>${{ object.real_price }}
 
                                             {% if object.sale_percentage %}
-                                                <del class="text-secondary"  >${{ object.price }}</del>
+                                                <del class="text-secondary">${{ object.price }}</del>
                                             {% endif %}
                                         </h5>
                                         <div class="product__color__select">
@@ -106,12 +72,7 @@
                                                 <label class="active" for="pc-8" style="background: {{ color }}">
                                                     <input type="radio" id="pc-8">
                                                 </label>
-
-
-
                                             {% endfor %}
-
-
                                         </div>
                                     </div>
                                 </div>
@@ -133,7 +94,14 @@
                 </div>
             </div>
         </div>
+
     </section>
+    {% else %}
+    <div class="centered">
+
+       <h2 class="text-secondary" style="text-align: center; margin-top: 200px">Hech narsa tanlanmagan</h2>
+        </div>
+    {% endif %}
     <!-- Shop Section End -->
 {% endblock %}
 {% block extra_js %}
@@ -142,70 +110,6 @@
 
     <script>
 
-        function addParam(name, value) {
-            let params = new URLSearchParams(window.location.search);
-            if (params.has(name) && params.get(name) === value) {
-                params.delete(name);
-            } else {
-                params.set(name, value);
-                console.log(params.toString());
-            }
-            console.log(params.toString());
-            window.location.search = params.toString();
-        }
-
-        {#write fuction on js what not reloat and with get method #}
-
-        function addCart(productId) {
-            let id = parseInt(productId)
-            $.ajax({
-                url: '{% url 'cart' %}',
-                method: 'GET',
-                data: {
-                    product_id: parseInt(id)
-                },
-                success: function (data) {
-                    // Optionally handle the response data
-                    console.log('Success:', data);
-
-                },
-                error: function (error) {
-                    console.error('Error:', error);
-                }
-            });
-        }
-        {#addcart cliccked reload cost unreload page navbar.html#}
-
-
-        {#  get all is_pressed and change image src  #}
-
-        {% if request.GET.price %}
-
-            {% get_current_price request 0 as form %}
-            {% get_current_price request 1 as to %}
-        {% else %}
-            {% get_current_price request as form %}
-            {% get_current_price request as to %}
-        {% endif %}
-
-
-        $("#birnima").ionRangeSlider({
-            type: "double",
-            grid: true,
-            min: {{ min_price }},
-            max: {{max_price}},
-            from: {{ min_price }},
-            to: {{ max_price }},
-            prefix: "$",
-
-        });
-        $("#birnima").data("ionRangeSlider").update({
-            from: {{ form }},
-            to: {{ to }},
-            onFinish: function (data) {
-                addParam('price', data.from + ';' + data.to)
-            }
-        });
 
         function addToWishlist(productId) {
             {# get heart icon is_pressed #}

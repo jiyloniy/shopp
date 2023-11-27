@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 
+# message
+from django.contrib.messages import constants as messages
 from django.utils.translation import gettext_lazy as _
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -54,6 +56,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',  # new
+    'django.middleware.common.CommonMiddleware',  # new
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -70,6 +74,10 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'libraries': {
+                'product_tags': 'product.templatetags.tag',
+
+            }
         },
     },
 ]
@@ -121,6 +129,11 @@ LANGUAGES = (
     ('ru', _('Russian')),
 )
 
+# default language uz
+LOCALE_PATHS = (
+    BASE_DIR / 'locale',
+)
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
@@ -145,4 +158,11 @@ CKEDITOR_CONFIGS = {
         'height': 300,
         'width': 300,
     },
+}
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger',
+    messages.SUCCESS: 'success',
+    messages.WARNING: 'warning',
+    messages.INFO: 'info',
+    messages.DEBUG: 'secondary',
 }
