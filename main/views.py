@@ -29,7 +29,9 @@ class ContactView(CreateView):
     fields = ['name', 'email', 'message']
 
     # send to bot
+
     def form_valid(self, form):
+        print(form.instance)
         form.save()
         # send  telegram bot
         token = Contact.token

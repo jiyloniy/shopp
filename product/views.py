@@ -64,6 +64,11 @@ class ProductListView(ListView):
         data['brands'] = Brand.objects.all()
         data['max_price'], data['min_price'] = Product.objects.all().aggregate(models.Max('real_price'),
                                                                                models.Min('real_price')).values()
+        # max_price = 1111,50 convert to 1111.50
+        data['max_price'] = str(data['max_price']).replace(',', '.')
+        data['min_price'] = str(data['min_price']).replace(',', '.')
+        print(data['max_price'])
+
         return data
 
 
@@ -110,6 +115,3 @@ def cart_view(request):
         request.session['cart'] = cart
     print(request.session['cart'])
     return HttpResponse('', status=200)
-
-
-

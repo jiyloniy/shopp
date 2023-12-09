@@ -62,8 +62,8 @@
                                     </td>
                                     <td class="cart__price">$ 30.00</td>
 
-                                        <td class="cart__close"><i class="fa fa-close" onclick="addCart({{ cart.id }})"></i></td>
-
+                                    <td class="cart__close"><i class="fa fa-close" onclick="addCart({{ cart.id }})"></i>
+                                    </td>
 
 
                                 </tr>
@@ -102,7 +102,7 @@
     {% block extra_js %}
         <script>
 
-        function addCart(productId) {
+            function addCart(productId) {
                 let id = parseInt(productId)
                 $.ajax({
                     url: '{% url 'cart' %}',

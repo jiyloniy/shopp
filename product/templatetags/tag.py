@@ -11,7 +11,8 @@ def get_current_price(request, index=0):
     if price == ['2']:
         return 'null'
     else:
-        return float(price[index])
+        print(str(price[index]).replace(',', '.'))
+        return str(price[index]).replace(',', '.')
 
 
 @register.simple_tag

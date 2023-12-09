@@ -5,14 +5,8 @@ from django.utils.translation import gettext_lazy as _
 
 # Create your models here.
 class UserModel(AbstractUser):
-    # country = models.CharField(max_length=100, verbose_name=_('country'), blank=True, null=True)
-    # address = models.CharField(max_length=200, verbose_name=_('address'), blank=True, null=True)
-    # city = models.CharField(max_length=100, verbose_name=_('city'), blank=True, null=True)
-    # region = models.CharField(max_length=200, verbose_name=_('region'), blank=True, null=True)
-    # zip_code = models.PositiveIntegerField(verbose_name=_('zip code'), blank=True, null=True)
-    # phone = models.CharField(max_length=13, verbose_name=_('phone'), blank=True, null=True)
-    # state = models.CharField(max_length=100, verbose_name=_('state'), blank=True, null=True)
-
+    
+    
     def __str__(self):
         return self.first_name
 
