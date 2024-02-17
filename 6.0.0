@@ -1,0 +1,12 @@
+Collecting django-ckeditor
+  Downloading django_ckeditor-6.7.1-py3-none-any.whl.metadata (32 kB)
+Requirement already satisfied: Django>=3.2 in d:\dasturllash\django kurs\shopp alhi\shopp\venv\lib\site-packages (from django-ckeditor) (5.0.2)
+Requirement already satisfied: django-js-asset>=2.0 in d:\dasturllash\django kurs\shopp alhi\shopp\venv\lib\site-packages (from django-ckeditor) (2.2.0)
+Requirement already satisfied: asgiref<4,>=3.7.0 in d:\dasturllash\django kurs\shopp alhi\shopp\venv\lib\site-packages (from Django>=3.2->django-ckeditor) (3.7.2)
+Requirement already satisfied: sqlparse>=0.3.1 in d:\dasturllash\django kurs\shopp alhi\shopp\venv\lib\site-packages (from Django>=3.2->django-ckeditor) (0.4.4)
+Requirement already satisfied: tzdata in d:\dasturllash\django kurs\shopp alhi\shopp\venv\lib\site-packages (from Django>=3.2->django-ckeditor) (2024.1)
+Requirement already satisfied: typing-extensions>=4 in d:\dasturllash\django kurs\shopp alhi\shopp\venv\lib\site-packages (from asgiref<4,>=3.7.0->Django>=3.2->django-ckeditor) (4.9.0)
+Downloading django_ckeditor-6.7.1-py3-none-any.whl (2.5 MB)
+   ---------------------------------------- 2.5/2.5 MB 1.0 MB/s eta 0:00:00
+Installing collected packages: django-ckeditor
+Successfully installed django-ckeditor-6.7.1
