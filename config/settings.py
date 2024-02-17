@@ -27,6 +27,7 @@ SECRET_KEY = 'django-insecure-z3qzuia%1e0l3i4n7_lt(($7epnv+@0cld=o4e8@tr1z%nr$a1
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+import dj_database_url
 
 ALLOWED_HOSTS = []
 
@@ -39,13 +40,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-   
+    
     'widget_tweaks',
     'user',
     'blog',
     'order',
     'product',
     'main',
+
 ]
 
 MIDDLEWARE = [
@@ -58,6 +60,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',  # new
     'django.middleware.common.CommonMiddleware',  # new
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -94,6 +97,16 @@ DATABASES = {
     }
 }
 
+# Password validation
+url = 'postgres://shoop_user:XOOZcLwsGyliTFV8xILmpLnpYPDKqLQ3@dpg-cn894ui1hbls73d9dua0-a.oregon-postgres.render.com/shoop'
+password = 'PGPASSWORD=XOOZcLwsGyliTFV8xILmpLnpYPDKqLQ3 psql -h dpg-cn894ui1hbls73d9dua0-a.oregon-postgres.render.com -U shoop_user shoop'
+DATABASES['default'] = dj_database_url.parse(url)
+
+INTERNAL_IPS = [
+
+    "127.0.0.1",
+
+]
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
